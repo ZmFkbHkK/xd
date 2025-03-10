@@ -9,6 +9,13 @@ CF_ID=fadliwaykanan@gmail.com
 set -euo pipefail
 echo ""
 sleep 1
+if [[ -f /root/.ipvps ]]; then
+IP=$(cat /root/.ipvps)
+elif [[ -f /root/.myip ]]; then
+IP=$(cat /root/.myip)
+else
+IP=$(curl -s ipv4.icanhazip.com)
+fi
 ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
      -H "X-Auth-Email: ${CF_ID}" \
      -H "X-Auth-Key: ${CF_KEY}" \
