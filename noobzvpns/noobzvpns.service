@@ -1,5 +1,5 @@
 [Unit]
-Description=NoobzVpn-Server
+Description=XDTunnel NoobzVpn
 Wants=network-online.target
 After=network.target network-online.target
 
