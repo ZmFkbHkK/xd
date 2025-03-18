@@ -13,7 +13,7 @@ import requests
 time.sleep(2)
 
 os.makedirs('/etc/noobzvpns', exist_ok=True)
-open('/etc/noobzvpns/users.json', 'a').close()
+open('/etc/noobzvpns/db_user.json', 'a').close()
 
 if os.path.isfile('/usr/bin/noobzvpns'):
     os.remove('/usr/bin/noobzvpns')
@@ -24,10 +24,18 @@ with open('/usr/bin/noobzvpns', 'wb') as f:
     f.write(response.content)
 os.chmod('/usr/bin/noobzvpns', 0o777)
 
+if os.path.isfile('/usr/bin/config.toml'):
+    os.remove('/usr/bin/config.toml')
+
 config_url = "https://raw.githubusercontent.com/ZmFkbHkK/xd/main/noobzvpns/config.toml"
 response = requests.get(config_url)
 with open('/etc/noobzvpns/config.toml', 'wb') as f:
     f.write(response.content)
+
+if os.path.isfile('/etc/systemd/system/noobzvpns.service'):
+    subprocess.run(['systemctl', 'stop', 'noobzvpns'])
+    subprocess.run(['systemctl', 'disable', 'noobzvpns'])
+    os.remove('/etc/systemd/system/noobzvpns.service')
 
 service_url = "https://raw.githubusercontent.com/ZmFkbHkK/xd/main/noobzvpns/noobzvpns.service"
 response = requests.get(service_url)
