@@ -3,11 +3,11 @@ import subprocess
 import time
 import requests
 
-# by xdxl store
+# =====================================================
+# description: Installer noobzvpns with python3 by xdxl
+# =====================================================
 
 os.system('clear')
-subprocess.run(['apt', 'update'])
-subprocess.run(['apt', 'install', 'wget', 'curl', '-y'])
 
 print(f"[ {time.ctime()} ] Processed Install noobzvpns service")
 time.sleep(2)
